@@ -1,31 +1,47 @@
 import type { Poster, TimelineEvent, ResearchTopic, ChartData, QuizQuestion } from '../types';
 
+import oneBrainImg from '../assets/posters/one_brain_many_worlds.jpg';
+import connectDifferentlyImg from '../assets/posters/connect_differently.jpg';
+import realisticImg from '../assets/posters/realistic_representation.jpg';
+import savantSyndromeImg from '../assets/posters/savant_syndrome.jpg';
+
+import slide1 from '../assets/workshop/1_intro.png';
+import slide2 from '../assets/workshop/2_goals.png';
+import slide3 from '../assets/workshop/3_beyond_stereotypes.png';
+import slide4 from '../assets/workshop/4_focus_shift.png';
+import slide5 from '../assets/workshop/5_real_vs_unreal.png';
+import slide6 from '../assets/workshop/6_impact_stereotypes.png';
+import slide7 from '../assets/workshop/7_long_term_commitment.png';
+import slide8 from '../assets/workshop/8_real_vs_unreal_resources.png';
+
 export const posters: Poster[] = [
   {
     id: 1,
     title: "One Brain, Many Worlds",
-    imageUrl: "/images/one-brain.jpg",
+    imageUrl: oneBrainImg,
     description: "Neurodivergence is not a monolith but a spectrum of unique internal worlds."
   },
   {
     id: 2,
     title: "Listen to Every Voice",
-    imageUrl: "/images/sensory-voice.jpg",
+    imageUrl: connectDifferentlyImg,
     description: "I feel deeply. I think pictures. I connect differently. Listen to every voice."
   },
   {
     id: 3,
     title: "Real vs. Unreal",
-    imageUrl: "/images/comparison.jpg",
+    imageUrl: realisticImg,
     description: "Contrasting 'Rain Man' (Unrealistic) with 'Temple Grandin' (Realistic). Perceptions are being harmed by outdated tropes."
   },
   {
     id: 4,
     title: "Did You Know?",
-    imageUrl: "/images/savant-syndrome.jpg",
+    imageUrl: savantSyndromeImg,
     description: "Savant Syndrome is a rare condition. Media often overrepresents this, ignoring the broader spectrum."
   }
 ];
+
+export const workshopSlides = [slide1, slide2, slide3, slide4, slide5, slide6, slide7, slide8];
 
 export const timelineEvents: TimelineEvent[] = [
   {

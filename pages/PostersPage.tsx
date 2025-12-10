@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { posters } from '../data/mockData';
 import type { Poster } from '../types';
+import WorkshopSlideshow from '../components/WorkshopSlideshow';
 
-const PageShell: React.FC<{children: React.ReactNode, title: string}> = ({ children, title }) => (
+const PageShell: React.FC<{ children: React.ReactNode, title: string }> = ({ children, title }) => (
     <div className="animate-fade-in pt-24 min-h-screen">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <header className="mb-12 text-center">
-            <h1 className="text-5xl font-serif text-brand-gold">{title}</h1>
-        </header>
-        {children}
-      </div>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <header className="mb-12 text-center">
+                <h1 className="text-5xl font-serif text-brand-gold">{title}</h1>
+            </header>
+            {children}
+        </div>
     </div>
 );
 
@@ -31,7 +32,7 @@ const Lightbox: React.FC<{ poster: Poster; onClose: () => void }> = ({ poster, o
 
 const PostersPage: React.FC = () => {
     const [selectedPoster, setSelectedPoster] = useState<Poster | null>(null);
-    
+
     return (
         <PageShell title="Poster Gallery">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-8 pb-20 justify-items-center">
@@ -39,13 +40,13 @@ const PostersPage: React.FC = () => {
                     <div
                         key={poster.id}
                         className="group relative overflow-hidden cursor-pointer shadow-lg animate-fade-in-up bg-gray-900 rounded-xl border border-gray-800 hover:border-brand-gold/50 transition-all duration-300 w-full max-w-sm aspect-[3/4]"
-                        style={{animationDelay: `${index * 100}ms`}}
+                        style={{ animationDelay: `${index * 100}ms` }}
                         onClick={() => setSelectedPoster(poster)}
                     >
                         <div className="w-full h-full p-2">
-                            <img 
-                                src={poster.imageUrl} 
-                                alt={poster.title} 
+                            <img
+                                src={poster.imageUrl}
+                                alt={poster.title}
                                 className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
                                 onError={(e) => {
                                     (e.target as HTMLImageElement).src = `https://placehold.co/600x800/1a1a1a/D4AF37?text=${encodeURIComponent(poster.title)}`;
@@ -61,6 +62,7 @@ const PostersPage: React.FC = () => {
                     </div>
                 ))}
             </div>
+            <WorkshopSlideshow />
             {selectedPoster && <Lightbox poster={selectedPoster} onClose={() => setSelectedPoster(null)} />}
         </PageShell>
     );
