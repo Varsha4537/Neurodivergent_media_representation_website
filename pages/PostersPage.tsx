@@ -17,11 +17,11 @@ const Lightbox: React.FC<{ poster: Poster; onClose: () => void }> = ({ poster, o
     return (
         <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center animate-fade-in" onClick={onClose}>
             <div className="relative w-full max-w-lg md:max-w-2xl lg:max-w-4xl p-4" onClick={(e) => e.stopPropagation()}>
-                <button onClick={onClose} className="absolute -top-2 -right-2 md:top-0 md:right-0 bg-white text-black rounded-full h-8 w-8 flex items-center justify-center z-10">&times;</button>
+                <button onClick={onClose} className="absolute -top-2 -right-2 md:top-0 md:right-0 bg-white text-black rounded-full h-8 w-8 flex items-center justify-center z-10 hover:bg-brand-gold transition-colors">&times;</button>
                 <img src={poster.imageUrl} alt={poster.title} className="w-full h-auto object-contain max-h-[85vh] shadow-2xl shadow-brand-gold/20" />
                 <div className="mt-4 text-center text-light-text">
-                    <h3 className="text-2xl font-serif">{poster.title}</h3>
-                    <p className="text-medium-text mt-1">{poster.description}</p>
+                    <h3 className="text-2xl font-serif text-brand-gold">{poster.title}</h3>
+                    <p className="text-medium-text mt-2 text-lg">{poster.description}</p>
                 </div>
             </div>
         </div>
@@ -34,18 +34,29 @@ const PostersPage: React.FC = () => {
     
     return (
         <PageShell title="Poster Gallery">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 pb-20">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-8 pb-20 justify-items-center">
                 {posters.map((poster, index) => (
                     <div
                         key={poster.id}
-                        className="group relative overflow-hidden cursor-pointer shadow-lg animate-fade-in-up"
-                        style={{animationDelay: `${index * 50}ms`}}
+                        className="group relative overflow-hidden cursor-pointer shadow-lg animate-fade-in-up bg-gray-900 rounded-xl border border-gray-800 hover:border-brand-gold/50 transition-all duration-300 w-full max-w-sm aspect-[3/4]"
+                        style={{animationDelay: `${index * 100}ms`}}
                         onClick={() => setSelectedPoster(poster)}
                     >
-                        <img src={poster.imageUrl} alt={poster.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20"></div>
-                        <div className="absolute bottom-0 left-0 p-4">
-                            <h3 className="text-lg font-bold text-light-text transition-transform duration-300 group-hover:-translate-y-1">{poster.title}</h3>
+                        <div className="w-full h-full p-2">
+                            <img 
+                                src={poster.imageUrl} 
+                                alt={poster.title} 
+                                className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
+                                onError={(e) => {
+                                    (e.target as HTMLImageElement).src = `https://placehold.co/600x800/1a1a1a/D4AF37?text=${encodeURIComponent(poster.title)}`;
+                                }}
+                            />
+                        </div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                            <div>
+                                <h3 className="text-xl font-bold text-brand-gold mb-1 font-serif">{poster.title}</h3>
+                                <p className="text-sm text-gray-300 line-clamp-2">{poster.description}</p>
+                            </div>
                         </div>
                     </div>
                 ))}

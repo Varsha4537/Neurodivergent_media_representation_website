@@ -1,11 +1,31 @@
 import type { Poster, TimelineEvent, ResearchTopic, ChartData, QuizQuestion } from '../types';
 
-export const posters: Poster[] = Array.from({ length: 12 }, (_, i) => ({
-  id: i + 1,
-  title: `Cinematic Moment ${i + 1}`,
-  imageUrl: `https://picsum.photos/seed/${i + 1}/800/1200`,
-  description: 'A compelling visual exploring themes of identity and perception in modern cinema.'
-}));
+export const posters: Poster[] = [
+  {
+    id: 1,
+    title: "One Brain, Many Worlds",
+    imageUrl: "/images/one-brain.jpg",
+    description: "Neurodivergence is not a monolith but a spectrum of unique internal worlds."
+  },
+  {
+    id: 2,
+    title: "Listen to Every Voice",
+    imageUrl: "/images/sensory-voice.jpg",
+    description: "I feel deeply. I think pictures. I connect differently. Listen to every voice."
+  },
+  {
+    id: 3,
+    title: "Real vs. Unreal",
+    imageUrl: "/images/comparison.jpg",
+    description: "Contrasting 'Rain Man' (Unrealistic) with 'Temple Grandin' (Realistic). Perceptions are being harmed by outdated tropes."
+  },
+  {
+    id: 4,
+    title: "Did You Know?",
+    imageUrl: "/images/savant-syndrome.jpg",
+    description: "Savant Syndrome is a rare condition. Media often overrepresents this, ignoring the broader spectrum."
+  }
+];
 
 export const timelineEvents: TimelineEvent[] = [
   {

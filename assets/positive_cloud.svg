@@ -1,0 +1,33 @@
+<svg width="800" height="450" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" style="background-color: white;">
+  <style>
+    .big { font-family: 'Cinzel', serif; font-weight: bold; }
+    .medium { font-family: 'Lato', sans-serif; font-weight: bold; }
+    .small { font-family: 'Lato', sans-serif; }
+  </style>
+  
+  <!-- Center / Biggest -->
+  <text x="400" y="225" text-anchor="middle" fill="#15803d" font-size="90" class="big">THINK</text>
+  <text x="250" y="300" text-anchor="middle" fill="#166534" font-size="80" class="big">SAY</text>
+  <text x="550" y="180" text-anchor="middle" fill="#166534" font-size="80" class="big">PEOPLES</text>
+  <text x="600" y="320" text-anchor="middle" fill="#15803d" font-size="75" class="big">LOVE</text>
+  
+  <!-- Medium -->
+  <text x="200" y="150" text-anchor="middle" fill="#22c55e" font-size="60" class="medium">AUTISM</text>
+  <text x="650" y="100" text-anchor="middle" fill="#4ade80" font-size="55" class="medium">WAY</text>
+  <text x="150" y="380" text-anchor="middle" fill="#22c55e" font-size="50" class="medium">FEEL</text>
+  <text x="450" y="350" text-anchor="middle" fill="#15803d" font-size="65" class="medium">MUSIC</text>
+  <text x="350" y="100" text-anchor="middle" fill="#86efac" font-size="50" class="medium">LIFE</text>
+  <text x="700" y="250" text-anchor="middle" fill="#4ade80" font-size="60" class="medium">EVEN</text>
+  
+  <!-- Small / Filler -->
+  <text x="100" y="250" text-anchor="middle" fill="#86efac" font-size="40" class="small">something</text>
+  <text x="300" y="400" text-anchor="middle" fill="#bbf7d0" font-size="35" class="small">know</text>
+  <text x="500" y="50" text-anchor="middle" fill="#22c55e" font-size="40" class="small">good</text>
+  <text x="50" y="100" text-anchor="middle" fill="#15803d" font-size="30" class="small">great</text>
+  <text x="700" y="400" text-anchor="middle" fill="#166534" font-size="45" class="small">WORLD</text>
+  <text x="400" y="420" text-anchor="middle" fill="#86efac" font-size="30" class="small">baddoctor</text>
+  <text x="600" y="50" text-anchor="middle" fill="#bbf7d0" font-size="30" class="small">best</text>
+  <text x="200" y="50" text-anchor="middle" fill="#4ade80" font-size="30" class="small">relationship</text>
+  <text x="750" y="350" text-anchor="middle" fill="#22c55e" font-size="35" class="small">friend</text>
+  <text x="50" y="300" text-anchor="middle" fill="#86efac" font-size="35" class="small">made</text>
+</svg>
