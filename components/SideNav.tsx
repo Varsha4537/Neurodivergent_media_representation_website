@@ -9,6 +9,9 @@ const SideNav: React.FC<SideNavProps> = ({ sections }) => {
     const [activeSection, setActiveSection] = useState<string>('');
     const { isCollapsed, toggleSidebar } = useSidebar();
 
+    // State for Navigation Guide
+    const [isGuideOpen, setIsGuideOpen] = useState(false);
+
     useEffect(() => {
         const handleScroll = () => {
             let currentSection = '';
@@ -74,6 +77,44 @@ const SideNav: React.FC<SideNavProps> = ({ sections }) => {
                     </svg>
                 )}
             </button>
+
+            {/* Navigation Guide - Hidden when collapsed */}
+            {!isCollapsed && (
+                <div className="mx-2 mb-4 bg-gray-900 border border-gray-700 rounded-md overflow-hidden">
+                    <button
+                        onClick={() => setIsGuideOpen(!isGuideOpen)}
+                        className="w-full text-xs font-bold text-brand-gold p-2 flex justify-between items-center hover:bg-gray-800 transition-colors"
+                    >
+                        <span>Looking for something specific?</span>
+                        <span className={`transform transition-transform duration-200 ${isGuideOpen ? 'rotate-180' : ''}`}>▼</span>
+                    </button>
+
+                    <div className={`transition-all duration-300 ease-in-out overflow-hidden ${isGuideOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'}`}>
+                        <div className="p-2 text-[10px] text-gray-300 space-y-2 border-t border-gray-800">
+                            <div className="grid grid-cols-2 gap-1 items-center">
+                                <span className="font-semibold text-gray-400">General audience</span>
+                                <span className="text-right">Home</span>
+                            </div>
+                            <div className="grid grid-cols-2 gap-1 items-center">
+                                <span className="font-semibold text-gray-400">Filmmakers</span>
+                                <span className="text-right">Guidelines</span>
+                            </div>
+                            <div className="grid grid-cols-2 gap-1 items-center">
+                                <span className="font-semibold text-gray-400">Film students</span>
+                                <span className="text-right">Home + Research</span>
+                            </div>
+                            <div className="grid grid-cols-2 gap-1 items-center">
+                                <span className="font-semibold text-gray-400">Researchers</span>
+                                <span className="text-right">Home + Research</span>
+                            </div>
+                            <div className="grid grid-cols-2 gap-1 items-center">
+                                <span className="font-semibold text-gray-400">Workshops/queries</span>
+                                <span className="text-right">Contact</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             <div className="flex flex-col space-y-1 px-2 overflow-y-auto pt-4 pb-20 scrollbar-thin scrollbar-thumb-gray-800">
                 {!isCollapsed && <h3 className="text-gray-500 text-xs font-bold uppercase tracking-widest mb-4 pl-6 animate-fade-in">On This Page</h3>}
