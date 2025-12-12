@@ -1,14 +1,16 @@
-import React from 'react';
 
-const PageShell: React.FC<{children: React.ReactNode, title: string}> = ({ children, title }) => (
-    <div className="animate-fade-in pt-24 min-h-screen">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <header className="mb-12 text-center">
-            <h1 className="text-5xl font-serif text-brand-gold">{title}</h1>
-            <p className="mt-4 text-lg text-medium-text max-w-3xl mx-auto">Meet the team behind this project and learn more about our mission.</p>
-        </header>
-        {children}
-      </div>
+import React from 'react';
+import SideNav from '../components/SideNav';
+
+const PageShell: React.FC<{ children: React.ReactNode, title: string }> = ({ children, title }) => (
+    <div className="animate-fade-in pt-24 min-h-screen lg:pl-64">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <header className="mb-12 text-center">
+                <h1 className="text-5xl font-serif text-brand-gold">{title}</h1>
+                <p className="mt-4 text-lg text-medium-text max-w-3xl mx-auto">Meet the team behind this project and learn more about our mission.</p>
+            </header>
+            {children}
+        </div>
     </div>
 );
 
@@ -29,16 +31,22 @@ const teamMembers = [
 const ContactPage: React.FC = () => {
     return (
         <PageShell title="Get In Touch">
+            <SideNav sections={[
+                { id: 'about', label: 'About' },
+                { id: 'mentors', label: 'Mentors' },
+                { id: 'team', label: 'The Team' },
+                { id: 'workshops', label: 'Workshops' }
+            ]} />
             <div className="max-w-4xl mx-auto mb-20 text-center">
-                
-                <section className="bg-gray-900/50 p-8 rounded-lg border border-gray-700 mb-16 animate-fade-in-up">
+
+                <section id="about" className="bg-gray-900/50 p-8 rounded-lg border border-gray-700 mb-16 animate-fade-in-up">
                     <h2 className="text-3xl font-serif text-brand-gold mb-4">About The Project</h2>
                     <p className="text-lg text-medium-text leading-relaxed text-left">
                         This website is the culmination of an Interdisciplinary Major Project (IMP), where a dedicated team of students came together under expert guidance. Our mission was to research the state of neurodivergent representation in media and develop a resource that is both educational and impactful for filmmakers, students, and the general public.
                     </p>
                 </section>
 
-                <section className="animate-fade-in-up mb-16" style={{animationDelay: '100ms'}}>
+                <section id="mentors" className="animate-fade-in-up mb-16" style={{ animationDelay: '100ms' }}>
                     <h2 className="text-3xl font-serif text-brand-gold mb-10">Mentors</h2>
                     <div className="flex flex-wrap justify-center gap-8">
                         {mentors.map((member, index) => (
@@ -50,7 +58,7 @@ const ContactPage: React.FC = () => {
                     </div>
                 </section>
 
-                <section className="animate-fade-in-up mb-16" style={{animationDelay: '200ms'}}>
+                <section id="team" className="animate-fade-in-up mb-16" style={{ animationDelay: '200ms' }}>
                     <h2 className="text-3xl font-serif text-brand-gold mb-10">The Team</h2>
                     <div className="flex flex-wrap justify-center gap-8">
                         {teamMembers.map((member, index) => (
@@ -63,7 +71,7 @@ const ContactPage: React.FC = () => {
                 </section>
 
                 {/* Workshop Information */}
-                <section className="animate-fade-in-up bg-gray-900/50 p-8 rounded-lg border border-gray-700" style={{animationDelay: '300ms'}}>
+                <section id="workshops" className="animate-fade-in-up bg-gray-900/50 p-8 rounded-lg border border-gray-700" style={{ animationDelay: '300ms' }}>
                     <h2 className="text-3xl font-serif text-brand-gold mb-6">Workshops & Inquiries</h2>
                     <div className="space-y-4">
                         <p className="text-lg text-medium-text leading-relaxed">

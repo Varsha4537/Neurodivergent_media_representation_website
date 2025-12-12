@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { timelineEvents } from '../data/mockData';
 import { SITE_TITLE } from '../constants';
 import type { TimelineEvent } from '../types';
+import SideNav from '../components/SideNav';
 
 const litReviewData = [
   {
@@ -49,40 +50,14 @@ const litReviewData = [
       "Tourette’s Syndrome: Persistent misrepresentation, especially exaggerated focus on coprolalia; outdated portrayals dominate.",
       "IDD: Underrepresented and often framed through pity or “supercrip” narratives."
     ]
-  },
-  {
-    title: "Identified Gaps in Existing Research",
-    points: [
-      "Neurodivergent individuals rarely shape their own media narratives.",
-      "Uneven scholarly focus—autism heavily researched; ADHD, TS, and IDD underexplored.",
-      "Limited investigation into long-term effects of misrepresentation on stigma, identity, or policy.",
-      "Lack of global and cross-cultural comparative studies."
-    ]
-  },
-  {
-    title: "Need for Structural Change",
-    points: [
-      "Inclusive and participatory media practices are essential.",
-      "Hiring neurodivergent creators, building feedback loops, and promoting authentic storytelling can dismantle stereotypes.",
-      "Improved representation can support more accurate public understanding and healthier societal attitudes."
-    ]
-  },
-  {
-    title: "Purpose of the Project",
-    points: [
-      "To identify gaps in current portrayals and recommendations.",
-      "To analyse existing media representations.",
-      "To create an awareness campaign designed to challenge current media portrayals that often reduce diverse experiences into narrow stereotypes.",
-      "To propose guidelines for accurate, respectful, and inclusive neurodivergent representation that film makers and students can refer"
-    ]
   }
 ];
 
-const PageShell: React.FC<{children: React.ReactNode}> = ({ children }) => (
-  <div className="animate-fade-in">{children}</div>
+const PageShell: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+  <div className="animate-fade-in lg:pl-64">{children}</div>
 );
 
-const Section: React.FC<{children: React.ReactNode, className?: string}> = ({ children, className }) => {
+const Section: React.FC<{ children: React.ReactNode, className?: string }> = ({ children, className }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -119,43 +94,43 @@ const Section: React.FC<{children: React.ReactNode, className?: string}> = ({ ch
 };
 
 
-const TimelineItem: React.FC<{event: TimelineEvent, isLast: boolean}> = ({ event, isLast }) => (
-    <div className="flex">
-        <div className="flex flex-col items-center mr-6">
-            <div className="w-4 h-4 bg-brand-gold rounded-full ring-4 ring-gray-700"></div>
-            {!isLast && <div className="w-px h-full bg-gray-600"></div>}
-        </div>
-        <div className="pb-16">
-            <p className="text-xl font-serif text-brand-gold mb-1">{event.year}</p>
-            <h3 className="text-lg font-bold text-light-text mb-2">{event.title}</h3>
-            <p className="text-medium-text">{event.description}</p>
-        </div>
+const TimelineItem: React.FC<{ event: TimelineEvent, isLast: boolean }> = ({ event, isLast }) => (
+  <div className="flex">
+    <div className="flex flex-col items-center mr-6">
+      <div className="w-4 h-4 bg-brand-gold rounded-full ring-4 ring-gray-700"></div>
+      {!isLast && <div className="w-px h-full bg-gray-600"></div>}
     </div>
+    <div className="pb-16">
+      <p className="text-xl font-serif text-brand-gold mb-1">{event.year}</p>
+      <h3 className="text-lg font-bold text-light-text mb-2">{event.title}</h3>
+      <p className="text-medium-text">{event.description}</p>
+    </div>
+  </div>
 );
 
 const LitReviewCard: React.FC<{ title: string; points: string[]; index: number }> = ({ title, points, index }) => (
   <div className="group relative h-full bg-gradient-to-br from-gray-900/80 to-black border border-gray-800 p-6 rounded-xl overflow-hidden hover:border-brand-gold/60 transition-all duration-500 hover:shadow-[0_0_20px_rgba(212,175,55,0.1)] hover:-translate-y-1">
-    
+
     {/* Background decorative number */}
     <div className="absolute -top-4 -right-4 text-9xl font-serif font-bold text-gray-800/20 group-hover:text-brand-gold/10 transition-colors duration-500 select-none pointer-events-none">
       {index + 1}
     </div>
 
     <div className="relative z-10 flex flex-col h-full">
-        <h3 className="text-xl md:text-2xl font-serif font-bold text-light-text mb-4 group-hover:text-brand-gold transition-colors duration-300">
-            {title}
-        </h3>
-        
-        <div className="w-12 h-0.5 bg-brand-gold/30 mb-6 group-hover:w-full group-hover:bg-brand-gold/50 transition-all duration-500"></div>
+      <h3 className="text-xl md:text-2xl font-serif font-bold text-light-text mb-4 group-hover:text-brand-gold transition-colors duration-300">
+        {title}
+      </h3>
 
-        <ul className="space-y-4 flex-grow">
+      <div className="w-12 h-0.5 bg-brand-gold/30 mb-6 group-hover:w-full group-hover:bg-brand-gold/50 transition-all duration-500"></div>
+
+      <ul className="space-y-4 flex-grow">
         {points.map((point, i) => (
-            <li key={i} className="flex items-start text-medium-text text-sm leading-relaxed group-hover:text-gray-300 transition-colors">
-                <span className="inline-block w-1.5 h-1.5 rounded-full bg-brand-gold mt-1.5 mr-3 flex-shrink-0 opacity-60 group-hover:opacity-100 transition-opacity"></span>
-                <span>{point}</span>
-            </li>
+          <li key={i} className="flex items-start text-medium-text text-sm leading-relaxed group-hover:text-gray-300 transition-colors">
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-brand-gold mt-1.5 mr-3 flex-shrink-0 opacity-60 group-hover:opacity-100 transition-opacity"></span>
+            <span>{point}</span>
+          </li>
         ))}
-        </ul>
+      </ul>
     </div>
   </div>
 );
@@ -164,14 +139,27 @@ const LitReviewCard: React.FC<{ title: string; points: string[]; index: number }
 const HomePage: React.FC = () => {
   return (
     <PageShell>
+      <SideNav sections={[
+        { id: 'hero', label: 'Home' },
+        { id: 'lit-review', label: 'Literature Review' },
+        { id: 'gaps', label: 'Gaps in Research' },
+        { id: 'structural-change', label: 'Structural Change' },
+        { id: 'purpose', label: 'Project Purpose' },
+        { id: 'timeline', label: 'Milestones' }
+      ]} />
       {/* Hero Section */}
-      <section className="h-screen w-full flex items-center justify-center relative text-center bg-cover bg-center bg-fixed" style={{backgroundImage: "url('https://picsum.photos/seed/neuro/1920/1080')"}}>
+      <section id="hero" className="h-screen w-full flex items-center justify-center relative text-center bg-cover bg-center bg-fixed" style={{ backgroundImage: "url('https://picsum.photos/seed/neuro/1920/1080')" }}>
         <div className="absolute inset-0 bg-black/70"></div>
         <div className="relative z-10 p-4 animate-fade-in-up">
-          <h1 className="text-5xl md:text-7xl font-serif font-bold text-brand-gold drop-shadow-lg">{SITE_TITLE}</h1>
-          <p className="mt-4 text-lg md:text-xl text-light-text max-w-2xl mx-auto tracking-wide">
-            Real and Unreal Representation of Neurodivergence in Media
-          </p>
+          <h1 className="text-5xl md:text-7xl font-serif font-bold text-brand-gold drop-shadow-lg mb-6">{SITE_TITLE}</h1>
+          <div className="text-base md:text-lg text-light-text max-w-4xl mx-auto tracking-wide space-y-4">
+            <p>
+              This project explores how neurodivergent conditions—ASD, ADHD, TS, and IDD—are portrayed in films, TV, and digital media, and how these portrayals shape public perception. Using literature review, netnography, text analytics of 42,000+ user comments, and interviews with psychologists and media professionals, we examine gaps between real experiences and on-screen representation.
+            </p>
+            <p>
+              This website shares our key findings, awareness materials, and practical guidelines for more accurate and inclusive media portrayals.
+            </p>
+          </div>
         </div>
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-light-text animate-bounce">
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -179,44 +167,125 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Literature Review Section */}
-      <section className="py-24 bg-dark-bg relative overflow-hidden">
+      <section id="lit-review" className="py-24 bg-dark-bg relative overflow-hidden">
         {/* Decorative background element */}
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-gold/30 to-transparent"></div>
         <div className="absolute -left-40 top-40 w-80 h-80 bg-brand-gold/5 rounded-full blur-3xl"></div>
         <div className="absolute -right-40 bottom-40 w-80 h-80 bg-brand-blue/5 rounded-full blur-3xl"></div>
-        
+
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <Section>
-                <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-5xl font-serif text-brand-gold mb-6">Literature Review Summary: Neurodiversity in Media</h2>
-                    <p className="text-medium-text max-w-2xl mx-auto text-lg">
-                        An analysis of how films, TV, and media shape public perception of neurodivergence, highlighting key patterns, consequences, and the path forward.
-                    </p>
+          <Section>
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-5xl font-serif text-brand-gold mb-6">Literature Review Summary: Neurodiversity in Media</h2>
+              <p className="text-medium-text max-w-2xl mx-auto text-lg">
+                An analysis of how films, TV, and media shape public perception of neurodivergence, highlighting key patterns, consequences, and the path forward.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {litReviewData.map((item, index) => (
+                <div key={index} className="h-full transform hover:z-10 transition-transform duration-300">
+                  <LitReviewCard title={item.title} points={item.points} index={index} />
                 </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {litReviewData.map((item, index) => (
-                        <div key={index} className="h-full transform hover:z-10 transition-transform duration-300">
-                           <LitReviewCard title={item.title} points={item.points} index={index} /> 
-                        </div>
-                    ))}
-                </div>
-            </Section>
+              ))}
+            </div>
+          </Section>
         </div>
       </section>
-      
-      {/* Timeline Section */}
-      <section className="py-20 bg-black border-t border-gray-900">
-         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
-              <Section>
-                <h2 className="text-4xl font-serif text-brand-gold mb-12 text-center">Milestones in Representation</h2>
-                <div className="relative">
-                  {timelineEvents.map((event, index) => (
-                    <TimelineItem key={index} event={event} isLast={index === timelineEvents.length - 1} />
-                  ))}
+
+      {/* Identified Gaps Section */}
+      <section id="gaps" className="py-20 bg-gray-900 border-t border-gray-800">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <Section>
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-4xl font-serif text-brand-gold mb-8 border-l-4 border-brand-gold pl-6">Identified Gaps in Existing Research</h2>
+              <ul className="grid gap-6 md:grid-cols-2">
+                {[
+                  "Neurodivergent individuals rarely shape their own media narratives.",
+                  "Uneven scholarly focus—autism heavily researched; ADHD, TS, and IDD underexplored.",
+                  "Limited investigation into long-term effects of misrepresentation on stigma, identity, or policy.",
+                  "Lack of global and cross-cultural comparative studies."
+                ].map((gap, i) => (
+                  <li key={i} className="bg-black/40 p-6 rounded-lg border border-gray-700 hover:border-brand-gold/50 transition-colors">
+                    <p className="text-lg text-light-text">{gap}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Section>
+        </div>
+      </section>
+
+      {/* Structural Change Section */}
+      <section id="structural-change" className="py-20 bg-black relative">
+        <div className="absolute inset-0 bg-brand-gold/5"></div>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <Section>
+            <div className="max-w-4xl mx-auto text-center">
+              <h2 className="text-4xl font-serif text-brand-gold mb-10">Need for Structural Change</h2>
+              <div className="grid gap-8 md:grid-cols-3">
+                <div className="p-6">
+                  <div className="text-5xl mb-4 text-brand-gold/20">01</div>
+                  <h3 className="text-xl font-bold text-light-text mb-3">Inclusive Practices</h3>
+                  <p className="text-medium-text">Inclusive and participatory media practices are essential.</p>
                 </div>
-              </Section>
-          </div>
+                <div className="p-6 bg-gray-900/50 rounded-xl border border-gray-800">
+                  <div className="text-5xl mb-4 text-brand-gold/20">02</div>
+                  <h3 className="text-xl font-bold text-light-text mb-3">Authentic Storytelling</h3>
+                  <p className="text-medium-text">Hiring neurodivergent creators, building feedback loops, and promoting authentic storytelling can dismantle stereotypes.</p>
+                </div>
+                <div className="p-6">
+                  <div className="text-5xl mb-4 text-brand-gold/20">03</div>
+                  <h3 className="text-xl font-bold text-light-text mb-3">Societal Impact</h3>
+                  <p className="text-medium-text">Improved representation can support more accurate public understanding and healthier societal attitudes.</p>
+                </div>
+              </div>
+            </div>
+          </Section>
+        </div>
+      </section>
+
+      {/* Purpose Section */}
+      <section id="purpose" className="py-20 bg-gray-900 border-y border-gray-800">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <Section>
+            <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12">
+              <div className="md:w-1/3 text-center md:text-left">
+                <h2 className="text-4xl font-serif text-brand-gold mb-4 leading-tight">Purpose of the <br /> Project</h2>
+                <div className="h-1 w-20 bg-brand-gold mx-auto md:mx-0"></div>
+              </div>
+              <div className="md:w-2/3">
+                <ul className="space-y-6">
+                  {[
+                    "To identify gaps in current portrayals and recommendations.",
+                    "To analyse existing media representations.",
+                    "To create an awareness campaign designed to challenge current media portrayals that often reduce diverse experiences into narrow stereotypes.",
+                    "To propose guidelines for accurate, respectful, and inclusive neurodivergent representation that film makers and students can refer"
+                  ].map((purpose, i) => (
+                    <li key={i} className="flex items-start">
+                      <span className="flex-shrink-0 w-8 h-8 rounded-full bg-brand-gold text-black font-bold flex items-center justify-center mr-4 mt-1">{i + 1}</span>
+                      <p className="text-xl text-gray-300">{purpose}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </Section>
+        </div>
+      </section>
+
+      {/* Timeline Section */}
+      <section id="timeline" className="py-20 bg-black border-t border-gray-900">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+          <Section>
+            <h2 className="text-4xl font-serif text-brand-gold mb-12 text-center">Milestones in Representation</h2>
+            <div className="relative">
+              {timelineEvents.map((event, index) => (
+                <TimelineItem key={index} event={event} isLast={index === timelineEvents.length - 1} />
+              ))}
+            </div>
+          </Section>
+        </div>
       </section>
     </PageShell>
   );

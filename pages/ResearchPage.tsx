@@ -1,111 +1,111 @@
-
 import React, { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import { researchTopics } from '../data/mockData';
 import type { ResearchTopic } from '../types';
+import SideNav from '../components/SideNav';
 
-const PageShell: React.FC<{children: React.ReactNode, title: string}> = ({ children, title }) => (
-    <div className="animate-fade-in pt-24 min-h-screen">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <header className="mb-12 text-center">
-            <h1 className="text-5xl font-serif text-brand-gold">{title}</h1>
-            <p className="mt-4 text-lg text-medium-text max-w-3xl mx-auto">Insights and findings from our analysis of neurodivergent representation in media.</p>
-        </header>
-        {children}
-      </div>
+const PageShell: React.FC<{ children: React.ReactNode, title: string }> = ({ children, title }) => (
+    <div className="animate-fade-in pt-24 min-h-screen lg:pl-64">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <header className="mb-12 text-center">
+                <h1 className="text-5xl font-serif text-brand-gold">{title}</h1>
+                <p className="mt-4 text-lg text-medium-text max-w-3xl mx-auto">Insights and findings from our analysis of neurodivergent representation in media.</p>
+            </header>
+            {children}
+        </div>
     </div>
 );
 
 const AccordionItem: React.FC<{ topic: ResearchTopic, isOpen: boolean, onClick: () => void }> = ({ topic, isOpen, onClick }) => {
-  return (
-    <div className="border-b border-gray-700">
-      <button onClick={onClick} className="w-full text-left py-6 flex justify-between items-center">
-        <div>
-          <h3 className="text-xl font-bold text-light-text">{topic.title}</h3>
-          <p className="text-medium-text mt-1">{topic.summary}</p>
+    return (
+        <div className="border-b border-gray-700">
+            <button onClick={onClick} className="w-full text-left py-6 flex justify-between items-center">
+                <div>
+                    <h3 className="text-xl font-bold text-light-text">{topic.title}</h3>
+                    <p className="text-medium-text mt-1">{topic.summary}</p>
+                </div>
+                <span className={`transform transition-transform duration-300 text-brand-gold text-2xl ${isOpen ? 'rotate-45' : 'rotate-0'}`}>+</span>
+            </button>
+            <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? 'max-h-96' : 'max-h-0'}`}>
+                <p className="text-light-text pb-6 pr-8 leading-relaxed">{topic.content}</p>
+            </div>
         </div>
-        <span className={`transform transition-transform duration-300 text-brand-gold text-2xl ${isOpen ? 'rotate-45' : 'rotate-0'}`}>+</span>
-      </button>
-      <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? 'max-h-96' : 'max-h-0'}`}>
-        <p className="text-light-text pb-6 pr-8 leading-relaxed">{topic.content}</p>
-      </div>
-    </div>
-  );
+    );
 };
 
 const topicKeywords = {
-  "0": {
-    label: "Daily Life & Support",
-    words: ["people", "work", "school", "need", "child", "say", "help", "life", "year", "way", "time", "thing"]
-  },
-  "1": {
-    label: "Music & Entertainment",
-    words: ["music", "play", "song", "year", "new", "star", "man", "world", "game", "release", "story", "musical"]
-  },
-  "2": {
-    label: "Emotional Cinematic Narratives",
-    words: ["good", "love", "story", "great", "cry", "drama", "woo", "child", "aamir", "actor", "temple", "khan"]
-  },
-  "3": {
-    label: "Audience Perception",
-    words: ["think", "know", "feel", "time", "thing", "get", "love", "want", "good", "way", "bad", "look"]
-  },
-  "4": {
-    label: "Identity & Representation",
-    words: ["autistic", "people", "autism", "person", "autistic people", "sia", "think", "spectrum", "know", "thing", "way", "autistic person"]
-  }
+    "0": {
+        label: "Daily Life & Support",
+        words: ["people", "work", "school", "need", "child", "say", "help", "life", "year", "way", "time", "thing"]
+    },
+    "1": {
+        label: "Music & Entertainment",
+        words: ["music", "play", "song", "year", "new", "star", "man", "world", "game", "release", "story", "musical"]
+    },
+    "2": {
+        label: "Emotional Cinematic Narratives",
+        words: ["good", "love", "story", "great", "cry", "drama", "woo", "child", "aamir", "actor", "temple", "khan"]
+    },
+    "3": {
+        label: "Audience Perception",
+        words: ["think", "know", "feel", "time", "thing", "get", "love", "want", "good", "way", "bad", "look"]
+    },
+    "4": {
+        label: "Identity & Representation",
+        words: ["autistic", "people", "autism", "person", "autistic people", "sia", "think", "spectrum", "know", "thing", "way", "autistic person"]
+    }
 };
 
 const TopicModellingDisplay: React.FC = () => {
-  // Distinct themes for each topic to create visual separation
-  const topicThemes = [
-    { color: 'text-cyan-400', border: 'border-cyan-500/30', bg: 'bg-cyan-500/10', pillBg: 'bg-cyan-900/30', hoverBorder: 'group-hover:border-cyan-400' },
-    { color: 'text-purple-400', border: 'border-purple-500/30', bg: 'bg-purple-500/10', pillBg: 'bg-purple-900/30', hoverBorder: 'group-hover:border-purple-400' },
-    { color: 'text-emerald-400', border: 'border-emerald-500/30', bg: 'bg-emerald-500/10', pillBg: 'bg-emerald-900/30', hoverBorder: 'group-hover:border-emerald-400' },
-    { color: 'text-amber-400', border: 'border-amber-500/30', bg: 'bg-amber-500/10', pillBg: 'bg-amber-900/30', hoverBorder: 'group-hover:border-amber-400' },
-    { color: 'text-rose-400', border: 'border-rose-500/30', bg: 'bg-rose-500/10', pillBg: 'bg-rose-900/30', hoverBorder: 'group-hover:border-rose-400' },
-  ];
+    // Distinct themes for each topic to create visual separation
+    const topicThemes = [
+        { color: 'text-cyan-400', border: 'border-cyan-500/30', bg: 'bg-cyan-500/10', pillBg: 'bg-cyan-900/30', hoverBorder: 'group-hover:border-cyan-400' },
+        { color: 'text-purple-400', border: 'border-purple-500/30', bg: 'bg-purple-500/10', pillBg: 'bg-purple-900/30', hoverBorder: 'group-hover:border-purple-400' },
+        { color: 'text-emerald-400', border: 'border-emerald-500/30', bg: 'bg-emerald-500/10', pillBg: 'bg-emerald-900/30', hoverBorder: 'group-hover:border-emerald-400' },
+        { color: 'text-amber-400', border: 'border-amber-500/30', bg: 'bg-amber-500/10', pillBg: 'bg-amber-900/30', hoverBorder: 'group-hover:border-amber-400' },
+        { color: 'text-rose-400', border: 'border-rose-500/30', bg: 'bg-rose-500/10', pillBg: 'bg-rose-900/30', hoverBorder: 'group-hover:border-rose-400' },
+    ];
 
-  return (
-    <div className="w-full">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-            {Object.entries(topicKeywords).map(([key, data], index) => {
-                const theme = topicThemes[index % topicThemes.length];
-                return (
-                    <div key={key} className={`relative bg-gray-900/60 border ${theme.border} rounded-xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 group flex flex-col`}>
-                        {/* Card Header */}
-                        <div className="p-5 border-b border-gray-800 relative overflow-hidden bg-gradient-to-b from-gray-800/50 to-transparent">
-                            <div className={`absolute top-0 left-0 w-1.5 h-full ${theme.bg.replace('/10', '/60')} transition-all duration-300 group-hover:w-2`}></div>
-                            <span className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 block pl-2">Topic {key}</span>
-                            <h4 className={`text-lg font-serif font-bold ${theme.color} leading-tight pl-2`}>{data.label}</h4>
-                        </div>
-                        
-                        {/* Keywords */}
-                        <div className="p-5 flex-grow bg-black/20">
-                            <div className="flex flex-wrap gap-2">
-                                {data.words.map((word, i) => (
-                                    <span 
-                                        key={i} 
-                                        className={`inline-block px-3 py-1 rounded-full text-xs font-medium tracking-wide 
+    return (
+        <div className="w-full">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+                {Object.entries(topicKeywords).map(([key, data], index) => {
+                    const theme = topicThemes[index % topicThemes.length];
+                    return (
+                        <div key={key} className={`relative bg-gray-900/60 border ${theme.border} rounded-xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 group flex flex-col`}>
+                            {/* Card Header */}
+                            <div className="p-5 border-b border-gray-800 relative overflow-hidden bg-gradient-to-b from-gray-800/50 to-transparent">
+                                <div className={`absolute top-0 left-0 w-1.5 h-full ${theme.bg.replace('/10', '/60')} transition-all duration-300 group-hover:w-2`}></div>
+                                <span className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 block pl-2">Topic {key}</span>
+                                <h4 className={`text-lg font-serif font-bold ${theme.color} leading-tight pl-2`}>{data.label}</h4>
+                            </div>
+
+                            {/* Keywords */}
+                            <div className="p-5 flex-grow bg-black/20">
+                                <div className="flex flex-wrap gap-2">
+                                    {data.words.map((word, i) => (
+                                        <span
+                                            key={i}
+                                            className={`inline-block px-3 py-1 rounded-full text-xs font-medium tracking-wide 
                                             ${theme.pillBg} ${theme.color} border border-transparent ${theme.hoverBorder}
                                             transition-all duration-300 hover:scale-110 hover:brightness-125 cursor-default
                                             shadow-sm`}
-                                        style={{ 
-                                            opacity: 0, 
-                                            animation: `fadeInUp 0.5s ease-out forwards ${i * 50}ms` 
-                                        }}
-                                    >
-                                        {word}
-                                    </span>
-                                ))}
+                                            style={{
+                                                opacity: 0,
+                                                animation: `fadeInUp 0.5s ease-out forwards ${i * 50}ms`
+                                            }}
+                                        >
+                                            {word}
+                                        </span>
+                                    ))}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                );
-            })}
+                    );
+                })}
+            </div>
         </div>
-    </div>
-  );
+    );
 };
 
 const WordCloudAnalysis: React.FC = () => {
@@ -164,48 +164,48 @@ const WordCloudAnalysis: React.FC = () => {
 };
 
 const InterviewSection: React.FC = () => (
-  <div className="mt-20 animate-fade-in-up">
-    <h2 className="text-3xl font-serif text-brand-gold mb-10 text-center">Interview Insights: Psychologists vs. Filmmakers</h2>
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-      {/* Psychologists */}
-      <div className="bg-gray-900/50 p-6 rounded-lg border border-blue-900/50 hover:border-blue-500/50 transition-colors duration-300">
-        <h3 className="text-xl font-bold text-blue-400 mb-4 border-b border-blue-900/50 pb-2">Psychologists’ Perspective</h3>
-        <ul className="space-y-4 text-medium-text text-sm leading-relaxed">
-           <li className="flex gap-3"><span className="text-blue-500 flex-shrink-0">•</span><span>High stigma and low educational awareness continue to shape neurodivergent experiences.</span></li>
-           <li className="flex gap-3"><span className="text-blue-500 flex-shrink-0">•</span><span>Media influences public perception, but audiences <strong className="text-gray-300">can think critically</strong> if educated early.</span></li>
-           <li className="flex gap-3"><span className="text-blue-500 flex-shrink-0">•</span><span>Films like <em>Barfi</em>, <em>Taare Zameen Par</em>, <em>My Name is Khan</em> introduce neurodiversity but still rely on <strong className="text-gray-300">extreme or boxed portrayals</strong>.</span></li>
-           <li className="flex gap-3"><span className="text-blue-500 flex-shrink-0">•</span><span>Representation should move beyond simplified labels and stereotypes.</span></li>
-        </ul>
-      </div>
+    <div id="interview" className="mt-20 animate-fade-in-up">
+        <h2 className="text-3xl font-serif text-brand-gold mb-10 text-center">Interview Insights: Psychologists vs. Filmmakers</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Psychologists */}
+            <div className="bg-gray-900/50 p-6 rounded-lg border border-blue-900/50 hover:border-blue-500/50 transition-colors duration-300">
+                <h3 className="text-xl font-bold text-blue-400 mb-4 border-b border-blue-900/50 pb-2">Psychologists’ Perspective</h3>
+                <ul className="space-y-4 text-medium-text text-sm leading-relaxed">
+                    <li className="flex gap-3"><span className="text-blue-500 flex-shrink-0">•</span><span>High stigma and low educational awareness continue to shape neurodivergent experiences.</span></li>
+                    <li className="flex gap-3"><span className="text-blue-500 flex-shrink-0">•</span><span>Media influences public perception, but audiences <strong className="text-gray-300">can think critically</strong> if educated early.</span></li>
+                    <li className="flex gap-3"><span className="text-blue-500 flex-shrink-0">•</span><span>Films like <em>Barfi</em>, <em>Taare Zameen Par</em>, <em>My Name is Khan</em> introduce neurodiversity but still rely on <strong className="text-gray-300">extreme or boxed portrayals</strong>.</span></li>
+                    <li className="flex gap-3"><span className="text-blue-500 flex-shrink-0">•</span><span>Representation should move beyond simplified labels and stereotypes.</span></li>
+                </ul>
+            </div>
 
-      {/* Filmmakers */}
-      <div className="bg-gray-900/50 p-6 rounded-lg border border-brand-gold/30 hover:border-brand-gold/60 transition-colors duration-300">
-        <h3 className="text-xl font-bold text-brand-gold mb-4 border-b border-brand-gold/30 pb-2">Filmmakers’ Perspective</h3>
-        <ul className="space-y-4 text-medium-text text-sm leading-relaxed">
-           <li className="flex gap-3"><span className="text-brand-gold flex-shrink-0">•</span><span>Representation is driven by <strong className="text-gray-300">creative intent and motivation</strong>, not obligation.</span></li>
-           <li className="flex gap-3"><span className="text-brand-gold flex-shrink-0">•</span><span>Fiction does not need to be fully accurate as long as core ideas and emotions are delivered.</span></li>
-           <li className="flex gap-3"><span className="text-brand-gold flex-shrink-0">•</span><span>Some dramatization is inevitable for storytelling and commercial appeal.</span></li>
-           <li className="flex gap-3"><span className="text-brand-gold flex-shrink-0">•</span><span>Want to convey caregiver experiences and spark critical thinking.</span></li>
-        </ul>
-      </div>
+            {/* Filmmakers */}
+            <div className="bg-gray-900/50 p-6 rounded-lg border border-brand-gold/30 hover:border-brand-gold/60 transition-colors duration-300">
+                <h3 className="text-xl font-bold text-brand-gold mb-4 border-b border-brand-gold/30 pb-2">Filmmakers’ Perspective</h3>
+                <ul className="space-y-4 text-medium-text text-sm leading-relaxed">
+                    <li className="flex gap-3"><span className="text-brand-gold flex-shrink-0">•</span><span>Representation is driven by <strong className="text-gray-300">creative intent and motivation</strong>, not obligation.</span></li>
+                    <li className="flex gap-3"><span className="text-brand-gold flex-shrink-0">•</span><span>Fiction does not need to be fully accurate as long as core ideas and emotions are delivered.</span></li>
+                    <li className="flex gap-3"><span className="text-brand-gold flex-shrink-0">•</span><span>Some dramatization is inevitable for storytelling and commercial appeal.</span></li>
+                    <li className="flex gap-3"><span className="text-brand-gold flex-shrink-0">•</span><span>Want to convey caregiver experiences and spark critical thinking.</span></li>
+                </ul>
+            </div>
 
-      {/* Common Ground */}
-      <div className="bg-gray-900/50 p-6 rounded-lg border border-gray-700 hover:border-gray-500 transition-colors duration-300 md:col-span-1 md:row-span-1">
-         <h3 className="text-xl font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2">Common Ground</h3>
-         <ul className="space-y-4 text-medium-text text-sm leading-relaxed">
-           <li className="flex gap-3"><span className="text-gray-500 flex-shrink-0">•</span><span>Both groups agree collaboration could help, but <strong className="text-gray-300">strict ethical guidelines may feel restrictive</strong>.</span></li>
-           <li className="flex gap-3"><span className="text-gray-500 flex-shrink-0">•</span><span>Creative freedom remains a priority, yet openness to expert input is increasing.</span></li>
-           <li className="flex gap-3"><span className="text-gray-500 flex-shrink-0">•</span><span>Both acknowledge the challenge of defining a single “correct” way to portray complex neurodivergence.</span></li>
-           <li className="flex gap-3"><span className="text-gray-500 flex-shrink-0">•</span><span>Preference for neurotypical actors continues due to limited industry resources for neurodivergent performers.</span></li>
-           <li className="flex gap-3"><span className="text-gray-500 flex-shrink-0">•</span><span>Ultimately, representation is shaped by creator intention — raising the question of how <strong className="text-gray-300">subjective guidelines</strong> can be.</span></li>
-        </ul>
-      </div>
+            {/* Common Ground */}
+            <div className="bg-gray-900/50 p-6 rounded-lg border border-gray-700 hover:border-gray-500 transition-colors duration-300 md:col-span-1 md:row-span-1">
+                <h3 className="text-xl font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2">Common Ground</h3>
+                <ul className="space-y-4 text-medium-text text-sm leading-relaxed">
+                    <li className="flex gap-3"><span className="text-gray-500 flex-shrink-0">•</span><span>Both groups agree collaboration could help, but <strong className="text-gray-300">strict ethical guidelines may feel restrictive</strong>.</span></li>
+                    <li className="flex gap-3"><span className="text-gray-500 flex-shrink-0">•</span><span>Creative freedom remains a priority, yet openness to expert input is increasing.</span></li>
+                    <li className="flex gap-3"><span className="text-gray-500 flex-shrink-0">•</span><span>Both acknowledge the challenge of defining a single “correct” way to portray complex neurodivergence.</span></li>
+                    <li className="flex gap-3"><span className="text-gray-500 flex-shrink-0">•</span><span>Preference for neurotypical actors continues due to limited industry resources for neurodivergent performers.</span></li>
+                    <li className="flex gap-3"><span className="text-gray-500 flex-shrink-0">•</span><span>Ultimately, representation is shaped by creator intention — raising the question of how <strong className="text-gray-300">subjective guidelines</strong> can be.</span></li>
+                </ul>
+            </div>
+        </div>
     </div>
-  </div>
 );
 
 const NetnographySection: React.FC = () => (
-    <div className="mt-20 animate-fade-in-up">
+    <div id="netnography" className="mt-20 animate-fade-in-up">
         <h2 className="text-3xl font-serif text-brand-gold mb-8">Netnography: Audience Perspectives</h2>
         <div className="bg-gradient-to-br from-gray-900/80 to-black p-8 rounded-xl border-l-4 border-brand-gold shadow-lg">
             <ul className="space-y-8 text-lg text-medium-text">
@@ -216,10 +216,10 @@ const NetnographySection: React.FC = () => (
                 <li>
                     <strong className="text-brand-gold text-xl block mb-2 font-serif">Critique of Overt Stereotypes</strong>
                     <p>Overt portrayals are often criticized for stereotypes. For example:</p>
-                     <ul className="mt-3 ml-6 list-disc text-base space-y-2 text-gray-400 marker:text-brand-gold">
+                    <ul className="mt-3 ml-6 list-disc text-base space-y-2 text-gray-400 marker:text-brand-gold">
                         <li><em>The Good Doctor</em> → “autistic genius” trope</li>
                         <li><em>The Accountant</em>, <em>Extraordinary Attorney Woo</em> → exaggerated traits</li>
-                     </ul>
+                    </ul>
                 </li>
                 <li>
                     <strong className="text-brand-gold text-xl block mb-2 font-serif">Clinical Accuracy Concerns</strong>
@@ -238,22 +238,22 @@ const QuantitativeSection: React.FC = () => {
     ];
 
     const emotionData = [
-      { name: 'Positive', value: 353000 },
-      { name: 'Trust', value: 222000 },
-      { name: 'Negative', value: 218000 },
-      { name: 'Anticipation', value: 165000 },
-      { name: 'Joy', value: 150000 },
-      { name: 'Fear', value: 131000 },
-      { name: 'Sadness', value: 123000 },
-      { name: 'Anger', value: 99000 },
-      { name: 'Surprise', value: 77000 },
-      { name: 'Disgust', value: 73000 },
+        { name: 'Positive', value: 353000 },
+        { name: 'Trust', value: 222000 },
+        { name: 'Negative', value: 218000 },
+        { name: 'Anticipation', value: 165000 },
+        { name: 'Joy', value: 150000 },
+        { name: 'Fear', value: 131000 },
+        { name: 'Sadness', value: 123000 },
+        { name: 'Anger', value: 99000 },
+        { name: 'Surprise', value: 77000 },
+        { name: 'Disgust', value: 73000 },
     ];
 
     return (
-        <div className="mt-20 animate-fade-in-up">
+        <div id="quantitative" className="mt-20 animate-fade-in-up">
             <h2 className="text-3xl font-serif text-brand-gold mb-8 text-center">Quantitative Findings <span className="text-xl text-gray-500 block font-sans font-normal mt-2 tracking-wide">(42,220 Comments Analysed)</span></h2>
-            
+
             {/* Sentiment Analysis Section with Chart */}
             <div className="bg-gray-800/30 p-8 rounded-lg border border-gray-700/50 mb-12">
                 <h4 className="text-2xl font-bold text-light-text mb-6 border-b border-gray-700 pb-3">Overall Sentiment Distribution</h4>
@@ -263,19 +263,19 @@ const QuantitativeSection: React.FC = () => {
                         <ResponsiveContainer width="100%" height="100%">
                             <BarChart data={sentimentData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
                                 <CartesianGrid strokeDasharray="3 3" stroke="#374151" vertical={false} />
-                                <XAxis 
-                                    dataKey="name" 
-                                    stroke="#9CA3AF" 
-                                    tick={{fill: '#D1D5DB'}} 
+                                <XAxis
+                                    dataKey="name"
+                                    stroke="#9CA3AF"
+                                    tick={{ fill: '#D1D5DB' }}
                                     tickLine={false}
                                 />
-                                <YAxis 
-                                    stroke="#9CA3AF" 
-                                    tick={{fill: '#D1D5DB'}}
-                                    tickFormatter={(value) => `${(value / 1000).toFixed(0)}k`} 
+                                <YAxis
+                                    stroke="#9CA3AF"
+                                    tick={{ fill: '#D1D5DB' }}
+                                    tickFormatter={(value) => `${(value / 1000).toFixed(0)}k`}
                                 />
                                 <Tooltip
-                                    cursor={{fill: 'rgba(255,255,255,0.05)'}}
+                                    cursor={{ fill: 'rgba(255,255,255,0.05)' }}
                                     contentStyle={{ backgroundColor: '#111827', border: '1px solid #4B5563', borderRadius: '0.375rem' }}
                                     labelStyle={{ color: '#F9FAFB', fontWeight: 'bold' }}
                                     itemStyle={{ color: '#D4AF37' }}
@@ -331,22 +331,22 @@ const QuantitativeSection: React.FC = () => {
                         <ResponsiveContainer width="100%" height="100%">
                             <BarChart data={emotionData} margin={{ top: 20, right: 30, left: 0, bottom: 60 }}>
                                 <CartesianGrid strokeDasharray="3 3" stroke="#374151" vertical={false} />
-                                <XAxis 
-                                    dataKey="name" 
-                                    stroke="#9CA3AF" 
-                                    tick={{fill: '#D1D5DB', fontSize: 12}} 
+                                <XAxis
+                                    dataKey="name"
+                                    stroke="#9CA3AF"
+                                    tick={{ fill: '#D1D5DB', fontSize: 12 }}
                                     tickLine={false}
                                     interval={0}
                                     angle={-45}
                                     textAnchor="end"
                                 />
-                                <YAxis 
-                                    stroke="#9CA3AF" 
-                                    tick={{fill: '#D1D5DB'}}
-                                    tickFormatter={(value) => `${(value / 1000).toFixed(0)}k`} 
+                                <YAxis
+                                    stroke="#9CA3AF"
+                                    tick={{ fill: '#D1D5DB' }}
+                                    tickFormatter={(value) => `${(value / 1000).toFixed(0)}k`}
                                 />
                                 <Tooltip
-                                    cursor={{fill: 'rgba(255,255,255,0.05)'}}
+                                    cursor={{ fill: 'rgba(255,255,255,0.05)' }}
                                     contentStyle={{ backgroundColor: '#111827', border: '1px solid #4B5563', borderRadius: '0.375rem' }}
                                     labelStyle={{ color: '#F9FAFB', fontWeight: 'bold' }}
                                     itemStyle={{ color: '#5A92FA' }}
@@ -362,7 +362,7 @@ const QuantitativeSection: React.FC = () => {
                             <h5 className="text-lg font-bold text-blue-300 mb-4 border-b border-blue-900/50 pb-2">Emotional Response Analysis</h5>
                             <p className="text-medium-text leading-relaxed">
                                 Dominant emotions: <strong className="text-blue-400">Trust</strong> and <strong className="text-blue-400">Anticipation</strong> are among the highest, suggesting audiences generally approach these narratives with openness and a desire to connect.
-                                <br/><br/>
+                                <br /><br />
                                 However, the presence of <strong className="text-red-400">Anger</strong> and <strong className="text-red-400">Fear</strong> highlights the emotional toll of inaccurate representation—where bad portrayals don't just bore audiences, they actively cause distress and concern about real-world consequences.
                             </p>
                         </div>
@@ -386,7 +386,7 @@ const QuantitativeSection: React.FC = () => {
 };
 
 const ConclusionSection: React.FC = () => (
-    <div className="mt-24 mb-10 p-10 bg-gradient-to-r from-gray-900 via-black to-gray-900 border-t border-b border-brand-gold/20 text-center animate-fade-in-up shadow-[0_0_30px_rgba(0,0,0,0.5)]">
+    <div id="conclusion" className="mt-24 mb-10 p-10 bg-gradient-to-r from-gray-900 via-black to-gray-900 border-t border-b border-brand-gold/20 text-center animate-fade-in-up shadow-[0_0_30px_rgba(0,0,0,0.5)]">
         <h2 className="text-3xl font-serif text-brand-gold mb-8 tracking-widest uppercase">Overall Conclusion</h2>
         <div className="max-w-4xl mx-auto space-y-6 text-xl text-gray-400 font-light leading-relaxed">
             <p>Psychologists, filmmakers, and audiences each bring different expectations to neurodivergent representation.</p>
@@ -397,31 +397,38 @@ const ConclusionSection: React.FC = () => (
 );
 
 const ResearchPage: React.FC = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+    const [openIndex, setOpenIndex] = useState<number | null>(0);
 
-  const handleToggle = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
+    const handleToggle = (index: number) => {
+        setOpenIndex(openIndex === index ? null : index);
+    };
 
-  return (
-    <PageShell title="Research Findings">
-        <div className="pb-12 animate-fade-in-up">
-            <h2 className="text-3xl font-serif text-brand-gold mb-6">Key Topics</h2>
-            <div>
-                {researchTopics.map((topic, index) => (
-                    <AccordionItem key={index} topic={topic} isOpen={openIndex === index} onClick={() => handleToggle(index)} />
-                ))}
+    return (
+        <PageShell title="Research Findings">
+            <SideNav sections={[
+                { id: 'key-topics', label: 'Key Topics' },
+                { id: 'interview', label: 'Interview Insights' },
+                { id: 'netnography', label: 'Netnography' },
+                { id: 'quantitative', label: 'Quantitative Findings' },
+                { id: 'conclusion', label: 'Conclusion' }
+            ]} />
+            <div id="key-topics" className="pb-12 animate-fade-in-up">
+                <h2 className="text-3xl font-serif text-brand-gold mb-6">Key Topics</h2>
+                <div>
+                    {researchTopics.map((topic, index) => (
+                        <AccordionItem key={index} topic={topic} isOpen={openIndex === index} onClick={() => handleToggle(index)} />
+                    ))}
+                </div>
             </div>
-        </div>
 
-        {/* New Sections */}
-        <InterviewSection />
-        <NetnographySection />
-        <QuantitativeSection />
-        <ConclusionSection />
-        
-    </PageShell>
-  );
+            {/* New Sections */}
+            <InterviewSection />
+            <NetnographySection />
+            <QuantitativeSection />
+            <ConclusionSection />
+
+        </PageShell>
+    );
 };
 
 export default ResearchPage;

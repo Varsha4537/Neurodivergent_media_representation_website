@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { posters } from '../data/mockData';
 import type { Poster } from '../types';
 import WorkshopSlideshow from '../components/WorkshopSlideshow';
+import SideNav from '../components/SideNav';
 
 const PageShell: React.FC<{ children: React.ReactNode, title: string }> = ({ children, title }) => (
-    <div className="animate-fade-in pt-24 min-h-screen">
+    <div className="animate-fade-in pt-24 min-h-screen lg:pl-64">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <header className="mb-12 text-center">
                 <h1 className="text-5xl font-serif text-brand-gold">{title}</h1>
@@ -35,7 +36,11 @@ const PostersPage: React.FC = () => {
 
     return (
         <PageShell title="Poster Gallery">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-8 pb-20 justify-items-center">
+            <SideNav sections={[
+                { id: 'gallery', label: 'Gallery' },
+                { id: 'slideshow', label: 'Workshop Slideshow' }
+            ]} />
+            <div id="gallery" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-8 pb-20 justify-items-center">
                 {posters.map((poster, index) => (
                     <div
                         key={poster.id}
@@ -62,7 +67,9 @@ const PostersPage: React.FC = () => {
                     </div>
                 ))}
             </div>
-            <WorkshopSlideshow />
+            <div id="slideshow">
+                <WorkshopSlideshow />
+            </div>
             {selectedPoster && <Lightbox poster={selectedPoster} onClose={() => setSelectedPoster(null)} />}
         </PageShell>
     );

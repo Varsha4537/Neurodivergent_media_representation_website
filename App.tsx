@@ -23,7 +23,7 @@ const App: React.FC = () => {
         return <HomePage />;
       case 'Posters':
         return <PostersPage />;
-      case 'Research':
+      case 'Research Findings':
         return <ResearchPage />;
       case 'Guidelines':
         return <GuidelinesPage />;
@@ -40,7 +40,9 @@ const App: React.FC = () => {
       <main className={`transition-opacity duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
         {renderPage()}
       </main>
-      <Footer />
+      <div className="lg:pl-64">
+        <Footer />
+      </div>
     </div>
   );
 };
