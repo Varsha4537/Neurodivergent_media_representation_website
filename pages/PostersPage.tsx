@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { posters } from '../data/mockData';
 import type { Poster } from '../types';
 import WorkshopSlideshow from '../components/WorkshopSlideshow';
+import { useSidebar } from '../contexts/SidebarContext';
 import SideNav from '../components/SideNav';
 
-const PageShell: React.FC<{ children: React.ReactNode, title: string }> = ({ children, title }) => (
-    <div className="animate-fade-in pt-24 min-h-screen lg:pl-64">
+const PageShell: React.FC<{ children: React.ReactNode, title: string, className?: string }> = ({ children, title, className }) => (
+    <div className={`animate-fade-in pt-24 min-h-screen ${className || ''}`}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <header className="mb-12 text-center">
                 <h1 className="text-5xl font-serif text-brand-gold">{title}</h1>
@@ -33,9 +34,10 @@ const Lightbox: React.FC<{ poster: Poster; onClose: () => void }> = ({ poster, o
 
 const PostersPage: React.FC = () => {
     const [selectedPoster, setSelectedPoster] = useState<Poster | null>(null);
+    const { isCollapsed } = useSidebar();
 
     return (
-        <PageShell title="Poster Gallery">
+        <PageShell title="Poster Gallery" className={`transition-all duration-300 ${isCollapsed ? 'lg:pl-16' : 'lg:pl-64'}`}>
             <SideNav sections={[
                 { id: 'gallery', label: 'Gallery' },
                 { id: 'slideshow', label: 'Workshop Slideshow' }

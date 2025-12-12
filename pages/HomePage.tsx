@@ -3,6 +3,7 @@ import { timelineEvents } from '../data/mockData';
 import { SITE_TITLE } from '../constants';
 import type { TimelineEvent } from '../types';
 import SideNav from '../components/SideNav';
+import { useSidebar } from '../contexts/SidebarContext';
 
 const litReviewData = [
   {
@@ -53,8 +54,8 @@ const litReviewData = [
   }
 ];
 
-const PageShell: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <div className="animate-fade-in lg:pl-64">{children}</div>
+const PageShell: React.FC<{ children: React.ReactNode, className?: string }> = ({ children, className }) => (
+  <div className={`animate-fade-in ${className || ''}`}>{children}</div>
 );
 
 const Section: React.FC<{ children: React.ReactNode, className?: string }> = ({ children, className }) => {
@@ -137,8 +138,10 @@ const LitReviewCard: React.FC<{ title: string; points: string[]; index: number }
 
 
 const HomePage: React.FC = () => {
+  const { isCollapsed } = useSidebar();
+
   return (
-    <PageShell>
+    <PageShell className={`transition-all duration-300 ${isCollapsed ? 'lg:pl-16' : 'lg:pl-64'}`}>
       <SideNav sections={[
         { id: 'hero', label: 'Home' },
         { id: 'lit-review', label: 'Literature Review' },

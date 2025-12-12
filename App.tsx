@@ -8,10 +8,12 @@ import GuidelinesPage from './pages/GuidelinesPage';
 import ContactPage from './pages/ContactPage';
 import type { Page } from './types';
 import { PAGES } from './constants';
+import { SidebarProvider, useSidebar } from './contexts/SidebarContext';
 
-const App: React.FC = () => {
+const AppContent: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<Page>('Home');
   const [isLoaded, setIsLoaded] = useState(false);
+  const { isCollapsed } = useSidebar();
 
   useEffect(() => {
     setIsLoaded(true);
@@ -40,11 +42,17 @@ const App: React.FC = () => {
       <main className={`transition-opacity duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
         {renderPage()}
       </main>
-      <div className="lg:pl-64">
+      <div className={`transition-all duration-300 ${isCollapsed ? 'lg:pl-16' : 'lg:pl-64'}`}>
         <Footer />
       </div>
     </div>
   );
 };
+
+const App: React.FC = () => (
+  <SidebarProvider>
+    <AppContent />
+  </SidebarProvider>
+);
 
 export default App;

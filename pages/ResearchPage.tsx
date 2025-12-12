@@ -3,9 +3,10 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import { researchTopics } from '../data/mockData';
 import type { ResearchTopic } from '../types';
 import SideNav from '../components/SideNav';
+import { useSidebar } from '../contexts/SidebarContext';
 
-const PageShell: React.FC<{ children: React.ReactNode, title: string }> = ({ children, title }) => (
-    <div className="animate-fade-in pt-24 min-h-screen lg:pl-64">
+const PageShell: React.FC<{ children: React.ReactNode, title: string, className?: string }> = ({ children, title, className }) => (
+    <div className={`animate-fade-in pt-24 min-h-screen ${className || ''}`}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <header className="mb-12 text-center">
                 <h1 className="text-5xl font-serif text-brand-gold">{title}</h1>
@@ -398,13 +399,14 @@ const ConclusionSection: React.FC = () => (
 
 const ResearchPage: React.FC = () => {
     const [openIndex, setOpenIndex] = useState<number | null>(0);
+    const { isCollapsed } = useSidebar();
 
     const handleToggle = (index: number) => {
         setOpenIndex(openIndex === index ? null : index);
     };
 
     return (
-        <PageShell title="Research Findings">
+        <PageShell title="Research Findings" className={`transition-all duration-300 ${isCollapsed ? 'lg:pl-16' : 'lg:pl-64'}`}>
             <SideNav sections={[
                 { id: 'key-topics', label: 'Key Topics' },
                 { id: 'interview', label: 'Interview Insights' },
